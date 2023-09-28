@@ -54,7 +54,7 @@ function App() {
     if (!interValId.current) {
       return;
     }
-    console.log('log3')
+    console.log('log test 3')
     clearInterval(interValId.current);
     interValId.current = null;
   };
