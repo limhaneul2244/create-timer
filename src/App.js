@@ -4,6 +4,7 @@ import reset from "styled-reset"
 import dotImg from './imgs/dot.svg';
 import boxImg from './imgs/box.svg';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import TimerBoxComponent from './component/TimerBoxComponent';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -38,45 +39,45 @@ const TimeWrap = styled.article`
   padding: 40px 44px;
   box-sizing: border-box;
 `
-const Number = styled.span`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  text-align: center;
-`
+// const Number = styled.span`
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   font-size: 40px;
+//   font-style: normal;
+//   font-weight: 700;
+//   line-height: normal;
+//   text-align: center;
+// `
 const Time = styled.div`
   display: flex;
   align-items: center;
   margin-top: 33px;
   margin-bottom: 40px;
 `
-const TimerBox = styled.div`
-  position: relative;
+// const TimerBox = styled.div`
+//   position: relative;
 
-  &::before {
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #A5B6EE;
-  }
-  &:nth-of-type(1)::before {
-    content: 'HRS';
-  }
-  &:nth-of-type(2)::before {
-    content: 'MIN';
-  }
-  &:nth-of-type(3)::before {
-    content: 'SEC';
-  }
-`
+//   &::before {
+//     position: absolute;
+//     top: -20px;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     color: #A5B6EE;
+//   }
+//   &:nth-of-type(1)::before {
+//     content: 'HRS';
+//   }
+//   &:nth-of-type(2)::before {
+//     content: 'MIN';
+//   }
+//   &:nth-of-type(3)::before {
+//     content: 'SEC';
+//   }
+// `
 const ImgLayout = styled.span`
-  ${(props) => props.name === 'countBox' ?
+  ${props => props.name === 'countBox' ?
     `content: url(${boxImg})` : `content: url(${dotImg}); padding: 0 10px;`};
 `
 const BtnStyle = styled.button`
@@ -88,9 +89,16 @@ const BtnStyle = styled.button`
   font-weight: 700;
   line-height: normal;
   color: #fff;
-  ${(props) => props.name === 'start' ?
-    `background-color: #5180ff; margin-right: 10px;` :
-    `background-color: #fb7099`};
+  ${props => {
+    if (props.name === 'START') {
+      return `background-color: #5180ff; margin-right: 10px;`;
+    } else if (props.name === 'PAUSE') {
+      return `background-color: #fb7099; margin-right: 10px;`;
+    } else {
+      return `background-color: #14B9AE;`;
+    }
+  }
+  };
 `
 function App() {
   const [count, setCount] = useState(10);
@@ -100,7 +108,6 @@ function App() {
 
   const clearIntervalFn = () => {
     if (!interValId.current) {
-      console.log('log2')
       return;
     }
     console.log('log3')
@@ -109,7 +116,7 @@ function App() {
   };
 
   //숫자를 화면에 그려줌
-  function render(count) {
+  function upDateRender(count) {
     if (count >= 10) {
       setCount(count);
       return;
@@ -124,10 +131,11 @@ function App() {
         clearIntervalFn();
         alert('종료');
         setStart('START');
-        render(10);
+        upDateRender(10);
+        setToggle(true);
         return 0;
       }
-      return render(prev - 1);
+      return upDateRender(prev - 1);
     });
   };
 
@@ -145,6 +153,7 @@ function App() {
 
   const handleStart = () => {
     if (toggle) {
+      console.log(toggle)
       setStart('PAUSE');
       setToggle(false);
       return;
@@ -152,30 +161,33 @@ function App() {
     setStart('START');
     setToggle(true);
   }
-  const handleReset = () => { }
+  const handleReset = () => { upDateRender(10); }
   return (
     <>
       <GlobalStyle />
       <TimeWrap>
         <h1>TIMER</h1>
         <Time>
-          <TimerBox>
+          <TimerBoxComponent/>
+          {/* <TimerBox>
             <Number>00</Number>
             <ImgLayout name='countBox'></ImgLayout>
-          </TimerBox>
+          </TimerBox> */}
           <ImgLayout name='dot'></ImgLayout>
-          <TimerBox>
+          <TimerBoxComponent/>
+          {/* <TimerBox>
             <Number>00</Number>
             <ImgLayout name='countBox'></ImgLayout>
-          </TimerBox>
+          </TimerBox> */}
           <ImgLayout name='dot'></ImgLayout>
-          <TimerBox>
+          <TimerBoxComponent/>
+          {/* <TimerBox>
             <Number>{count}</Number>
             <ImgLayout name='countBox'></ImgLayout>
-          </TimerBox>
+          </TimerBox> */}
         </Time>
         <div className="btnWrap">
-          <BtnStyle type="button" name="start" onClick={handleStart}>{start}</BtnStyle>
+          <BtnStyle type="button" name={start} onClick={handleStart}>{start}</BtnStyle>
           <BtnStyle type="button" name="reset" onClick={handleReset}>RESET</BtnStyle>
         </div>
       </TimeWrap>
