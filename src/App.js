@@ -1,30 +1,9 @@
 import './App.css';
-import styled, { createGlobalStyle } from "styled-components"
-import reset from "styled-reset"
-import dotImg from './imgs/dot.svg';
-import boxImg from './imgs/box.svg';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import styled from "styled-components";
+import { GlobalStyle, ImgLayout } from "./commonStyle";
+import { useEffect, useRef, useState } from 'react';
 import TimerBoxComponent from './component/TimerBoxComponent';
 
-const GlobalStyle = createGlobalStyle`
-  ${reset}
-  html {
-    background: radial-gradient(293.21% 130.49% at 3.59% 5.28%, #f0f4ff 0%, #a5b6ee 100%);
-  }
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #fff;
-  }
-  h1 {
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-`
 const TimeWrap = styled.article`
   margin: auto auto;
   display: flex;
@@ -39,46 +18,11 @@ const TimeWrap = styled.article`
   padding: 40px 44px;
   box-sizing: border-box;
 `
-// const Number = styled.span`
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   font-size: 40px;
-//   font-style: normal;
-//   font-weight: 700;
-//   line-height: normal;
-//   text-align: center;
-// `
 const Time = styled.div`
   display: flex;
   align-items: center;
   margin-top: 33px;
   margin-bottom: 40px;
-`
-// const TimerBox = styled.div`
-//   position: relative;
-
-//   &::before {
-//     position: absolute;
-//     top: -20px;
-//     left: 50%;
-//     transform: translateX(-50%);
-//     color: #A5B6EE;
-//   }
-//   &:nth-of-type(1)::before {
-//     content: 'HRS';
-//   }
-//   &:nth-of-type(2)::before {
-//     content: 'MIN';
-//   }
-//   &:nth-of-type(3)::before {
-//     content: 'SEC';
-//   }
-// `
-const ImgLayout = styled.span`
-  ${props => props.name === 'countBox' ?
-    `content: url(${boxImg})` : `content: url(${dotImg}); padding: 0 10px;`};
 `
 const BtnStyle = styled.button`
   padding: 16px 23px;
@@ -168,23 +112,11 @@ function App() {
       <TimeWrap>
         <h1>TIMER</h1>
         <Time>
-          <TimerBoxComponent/>
-          {/* <TimerBox>
-            <Number>00</Number>
-            <ImgLayout name='countBox'></ImgLayout>
-          </TimerBox> */}
+          <TimerBoxComponent count = {'00'}/>
           <ImgLayout name='dot'></ImgLayout>
-          <TimerBoxComponent/>
-          {/* <TimerBox>
-            <Number>00</Number>
-            <ImgLayout name='countBox'></ImgLayout>
-          </TimerBox> */}
+          <TimerBoxComponent count = {'00'}/>
           <ImgLayout name='dot'></ImgLayout>
-          <TimerBoxComponent/>
-          {/* <TimerBox>
-            <Number>{count}</Number>
-            <ImgLayout name='countBox'></ImgLayout>
-          </TimerBox> */}
+          <TimerBoxComponent count = {count}/>
         </Time>
         <div className="btnWrap">
           <BtnStyle type="button" name={start} onClick={handleStart}>{start}</BtnStyle>

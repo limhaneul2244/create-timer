@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import dotImg from "../imgs/dot.svg";
-import boxImg from "../imgs/box.svg";
+import { ImgLayout } from "../commonStyle";
 
 const TimerBox = styled.div`
   position: relative;
@@ -34,18 +33,17 @@ const Number = styled.span`
   line-height: normal;
   text-align: center;
 `;
-const ImgLayout = styled.span`
-  ${(props) =>
-    props.name === "countBox"
-      ? `content: url(${boxImg})`
-      : `content: url(${dotImg}); padding: 0 10px;`};
-`;
 
-export default function TimerBoxComponent() {
+
+/**
+ * 
+ * @returns 숫자가 카운트되는 timerBox
+ */
+export default function TimerBoxComponent({count}) {
   return (
     <>
       <TimerBox>
-        <Number>00</Number>
+        <Number>{count}</Number>
         <ImgLayout name="countBox"></ImgLayout>
       </TimerBox>
     </>
