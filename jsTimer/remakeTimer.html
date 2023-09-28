@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>timer</title>
+</head>
+
+<body>
+  <article class="timerWrap">
+    <h1>TIMER</h1>
+    <div class="time">
+      <div class="timerBox">
+        <span class="number">00</span>
+        <span class="countBox"></span>
+      </div>
+      <span class="dot"></span>
+      <div class="timerBox">
+        <span class="number">00</span>
+        <span class="countBox"></span>
+      </div>
+      <span class="dot"></span>
+      <div class="timerBox">
+        <span id="sec" class="number">10</span>
+        <span class="countBox"></span>
+      </div>
+    </div>
+    <div class="btnWrap">
+      <button type="button" class="start" onclick="handleStart">START</button>
+      <button type="button" class="reset" onclick="handleReset">RESET</button>
+    </div>
+  </article>
+
+  <script>
+    const startBtn = document.querySelector('.start');
+    const resetBtn = document.querySelector('.reset');
+    const resultElem = document.getElementById('sec');
+    let number = Number(resultElem.innerText);
+    let toggle = true; //버튼 토글
+    let interValId; //interval을 담을 변수 지정
+
+    //clearInterval함수
+    function clearIntervalFn() {
+      if (!interValId) {//값이 없을 경우 예외처리
+        return;
+      }
+      clearInterval(interValId);
+      interValId = null; //interValId 사용하지 않으므로 null 담음
+    }
+
+    //숫자 카운트 함수
+    function countNum() {
+      if (number === 0) {
+        alert('finish');
+        startBtn.textContent = 'START';
+        setNumber(10);
+        clearIntervalFn();
+        return;
+      }
+      setNumber(number - 1);
+      //number--;
+      console.log('countNumber', number)
+    }
+
+    function handleStart() {
+      console.log('firstToggle', toggle)
+      if (toggle) {
+        console.log('start')
+        startBtn.textContent = 'PAUSE';
+        interValId = setInterval(countNum, 1000);
+      } else {
+        startBtn.textContent = 'START';
+        clearIntervalFn();
+      }
+      toggle = !toggle;
+      console.log('lastToggle', toggle)
+    }
+    startBtn.addEventListener('click', handleStart);
+
+    function setNumber(num) {
+      number = num;
+      console.log(number)
+      render();
+    }
+
+    //숫자가 다시 그려지는 함수
+    function render() {
+      if (number >= 10) { //10이상일 경우 두자리 숫자
+        resultElem.textContent = `${number}`;
+        return;
+      }
+      resultElem.textContent = `0${number}`;
+    }
+
+    //숫자 초기화
+    function handleReset() {
+      console.log('reset')
+      setNumber(10);
+    }
+    resetBtn.addEventListener('click', handleReset);
+  </script>
+</body>
+
+</html>

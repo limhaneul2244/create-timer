@@ -1,0 +1,90 @@
+html {
+  background: var(
+    --gradient2,
+    radial-gradient(293.21% 130.49% at 3.59% 5.28%, #f0f4ff 0%, #a5b6ee 100%)
+  );
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  color: #fff;
+}
+h1 {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.timerWrap {
+  margin: auto auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 400px;
+  height: 360px;
+  box-shadow: 20px 20px 60px 10px rgba(55, 75, 124, 0.4);
+  border-radius: 16px;
+  background: var(
+    --gradient,
+    linear-gradient(144deg, #5572bb 2.13%, #374b7c 102.97%)
+  );
+  padding: 40px 44px;
+  box-sizing: border-box;
+}
+
+.time {
+  display: flex;
+  align-items: center;
+  margin-top: 33px;
+  margin-bottom: 40px;
+}
+
+.timerBox {
+  position: relative;
+}
+
+.timerBox::before {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--light, #A5B6EE);
+}
+.timerBox:nth-of-type(1)::before {
+  content: 'HRS';
+}
+.timerBox:nth-of-type(2)::before {
+  content: 'MIN';
+}
+.timerBox:nth-of-type(3)::before {
+  content: 'SEC';
+}
+
+.number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+}
+.countBox {
+  content: url(../imgs/box.svg);
+}
+.dot {
+  content: url(../imgs/dot.svg);
+  padding: 0 10px;
+}
+
+.start {
+  background-color: #5180ff;
+}
+
+.reset {
+  background-color: #fb7099;
+}
