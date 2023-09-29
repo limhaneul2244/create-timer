@@ -44,7 +44,7 @@ export default function TimerBoxComponent({count}) {
     <>
       <TimerBox>
         <Number>{count}</Number>
-        <ImgLayout name="countBox"></ImgLayout>
+        <ImgLayout name="countBox" />
       </TimerBox>
     </>
   );

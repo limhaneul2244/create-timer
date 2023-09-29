@@ -24,8 +24,16 @@ export const GlobalStyle = createGlobalStyle`
   }
 `
 export const ImgLayout = styled.span`
-  ${(props) =>
-    props.name === "countBox"
-      ? `content: url(${boxImg})`
-      : `content: url(${dotImg}); padding: 0 10px;`};
+  ${(props) => ImgLayoutStyle(props.name)};
 `;
+
+const ImgLayoutStyle = (name) => {
+  switch (name) {
+    case "countBox":
+      return `content: url(${boxImg})`;
+    case "dot":
+      return `content: url(${dotImg}); padding: 0 10px;`;
+    default:
+      return '';
+  }
+}

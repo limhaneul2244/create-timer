@@ -112,11 +112,11 @@ function App() {
       <TimeWrap>
         <h1>TIMER</h1>
         <Time>
-          <TimerBoxComponent count = {'00'}/>
-          <ImgLayout name='dot'></ImgLayout>
-          <TimerBoxComponent count = {'00'}/>
-          <ImgLayout name='dot'></ImgLayout>
-          <TimerBoxComponent count = {count}/>
+          <TimerBoxComponent count={'00'} />
+          <ImgLayout name='dot' />
+          <TimerBoxComponent count={'00'} />
+          <ImgLayout name='dot' />
+          <TimerBoxComponent count={count} />
         </Time>
         <div className="btnWrap">
           <BtnStyle type="button" name={start} onClick={handleStart}>{start}</BtnStyle>
